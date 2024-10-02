@@ -1,0 +1,26 @@
+{
+    "version": "0.2.0",
+    "compounds": [
+        {
+            "name": "Run all",
+            "configurations": [
+                "Run products api",
+                "Run web",
+            ]
+        }
+    ],
+    "configurations": [
+        {
+            "name": "Run products api",
+            "type": "dotnet",
+            "request": "launch",
+            "projectPath": "${workspaceFolder}\\src\\Aspnet.Products.Api\\Aspnet.Products.Api.csproj"
+        },
+        {
+            "name": "Run web",
+            "type": "dotnet",
+            "request": "launch",
+            "projectPath": "${workspaceFolder}\\src\\Aspnet.Web\\Aspnet.Web.csproj"
+        }
+    ]
+}
