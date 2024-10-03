@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Aspnet.DataEntities;
+namespace Aspnet.Products.Api.Models;
 
 [Table("ProductCategory", Schema = "SalesLT")]
 public class ProductCategory

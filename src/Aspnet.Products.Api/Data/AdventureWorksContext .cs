@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using Aspnet.DataEntities;
+using Aspnet.Products.Api.Models;
 
 namespace Aspnet.Products.Api.Data;
 

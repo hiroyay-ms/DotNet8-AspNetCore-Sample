@@ -1,4 +1,5 @@
 using Microsoft.ApplicationInsights.Extensibility;
+using Aspnet.Web.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,6 +8,14 @@ builder.Services.AddRazorPages();
 
 builder.Services.AddApplicationInsightsTelemetry();
 builder.Services.AddSingleton<ITelemetryInitializer, AppInsightsTelemetryInitializer>();
+
+builder.Services.AddSingleton<ProductService>();
+builder.Services.AddHttpClient<ProductService>(config =>
+{
+    var url = builder.Configuration["ProductEndpoint"] ?? throw new InvalidOperationException("ProductEndpoint is not found.");
+
+    config.BaseAddress = new Uri(url);
+});
 
 var app = builder.Build();
 
