@@ -20,7 +20,7 @@ permissions:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     env:
       APP_PATH: './src/Api'
 
@@ -48,7 +48,7 @@ jobs:
           path: ${{ env.APP_PATH }}/webapi
 
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs: build
   
     steps:
