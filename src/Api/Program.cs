@@ -11,7 +11,23 @@ builder.Services.AddSingleton<ITelemetryInitializer, AppInsightsTelemetryInitial
 var connectionString = builder.Configuration["SQL_CONNECTION_STRING"] ?? throw new InvalidOperationException("Connection string 'SQL_CONNECTION_STRING' not found.");
 builder.Services.AddDbContext<AdventureWorksContext>(options => options.UseSqlServer(connectionString));
 
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Title = "AdventureWorks API",
+        Version = "v1"
+    });
+});
+
 var app = builder.Build();
+
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
 
 app.MapGet("/", () => "Hello World!");
 

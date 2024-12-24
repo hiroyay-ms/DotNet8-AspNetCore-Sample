@@ -7,7 +7,7 @@ public class AppInsightsTelemetryInitializer : ITelemetryInitializer
     {
         if (string.IsNullOrEmpty(telemetry.Context.Cloud.RoleName))
         {
-            telemetry.Context.Cloud.RoleName = "Demo-Api";
+            telemetry.Context.Cloud.RoleName = "AdventureWorks-Api";
         }
     }
 }
