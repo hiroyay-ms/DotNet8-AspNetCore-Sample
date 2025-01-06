@@ -20,6 +20,8 @@ public class AdventureWorksContext : DbContext
     public DbSet<SalesOrderHeader> SalesOrderHeader => Set<SalesOrderHeader>();
     public DbSet<SalesOrderDetail> SalesOrderDetail => Set<SalesOrderDetail>();
 
+    public DbSet<Titles> Titles => Set<Titles>();
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<ProductCategory>().ToTable("ProductCategory", "SalesLT");
@@ -31,5 +33,6 @@ public class AdventureWorksContext : DbContext
         modelBuilder.Entity<Customer>().ToTable("Customer", "SalesLT");
         modelBuilder.Entity<SalesOrderHeader>().ToTable("SalesOrderHeader", "SalesLT");
         modelBuilder.Entity<SalesOrderDetail>().ToTable("SalesOrderDetail", "SalesLT");
+        modelBuilder.Entity<Titles>().ToTable("titles", "Pubs");
     }
 }

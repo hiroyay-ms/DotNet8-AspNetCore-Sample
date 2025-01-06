@@ -29,6 +29,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.MapGet("/", () => "Hello World!");
+app.RegisterProductEndpoints();
+app.RegisterTestEndpoints();
 
 app.Run();
