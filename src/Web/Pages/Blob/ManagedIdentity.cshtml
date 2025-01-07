@@ -1,0 +1,67 @@
+@page
+@model Web.Pages.Blob.ManagedIdentityModel
+@{
+    ViewData["Title"] = "User-Assigned Managed Identity -Blob";
+}
+
+<h2 class="pageTitle">Authorize access to blobs using Microsoft Entra ID</h2>
+
+<p class="pageDescription">This page demonstrates how to use Microsoft Entra authentication with Azure Blob Storage</p>
+
+<form method="get">
+
+    <span>Blob service:</span>
+    <pre class="connectionString">
+        @ViewData["blobService"]
+    </pre>
+
+    <div class="radioButtonGroup">
+        <span>Container:</span>
+        <div class="radioButtons">
+            <input type="radio" id="saleslt" name="container" value="saleslt">
+            <label for="saleslt">saleslt</label>
+        </div>
+        <div class="radioButtons">
+            <input type="radio" id="pubs" name="container" value="pubs">
+            <label for="pubs">pubs</label>
+        </div>
+    </div>
+
+    <div class="radioButtonGroup">
+        <span>User Id:</span>
+        <div class="radioButtons">
+            <input type="radio" id="id-aw-saleslt" name="userid" value="id-aw-saleslt">
+            <label for="id-aw-saleslt">id-aw-saleslt</label>
+        </div>
+        <div class="radioButtons">
+            <input type="radio" id="id-aw-pubs" name="userid" value="id-aw-pubs">
+            <label for="id-aw-pubs">id-aw-pubs</label>
+        </div>
+        <div class="radioButtons">
+            <input type="radio" id="uaid-test-3_b" name="userid" value="uaid-test-3_b">
+            <label for="uaid-test-3_b">uaid-test-3_b</label>
+        </div>
+        <div class="radioButtons">
+            <input type="radio" id="uaid-test-3_c" name="userid" value="uaid-test-3_c">
+            <label for="uaid-test-3_c">uaid-test-3_c</label>
+        </div>
+    </div>
+
+    <div class="submitButton">
+        <input type="submit" value="Submit" />
+    </div>
+
+    <span class="messageBox">@ViewData["message"]</span>
+    <div class="downloadBox">
+        @if (Model.blob != "")
+        {
+            <span>Downloaded blob:</span>
+            <span>@Model.blob</span>
+        }
+    </div>
+
+</form>
+
+<div class="pageLink">
+    <a asp-page="Index">←&nbsp;System-Assigned Managed Identity -Blob</a>
+</div>

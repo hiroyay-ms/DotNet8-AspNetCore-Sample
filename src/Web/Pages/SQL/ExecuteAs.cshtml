@@ -1,0 +1,63 @@
+@page
+@model Web.Pages.SQL.ExecuteAsModel
+@{
+    ViewData["Title"] = "User-Assigned Managed Identity -SQL";
+}
+
+<h2 class="pageTitle">Microsoft Entra authentication with Azure SQL</h2>
+
+<p class="pageDescription">This page demonstrates how to use Microsoft Entra authentication with Azure SQL Database</p>
+
+<form method="get">
+
+    <span>ConnectionString:</span>
+    <pre class="connectionString">
+        @ViewData["connectionString"]
+    </pre>
+
+    <div class="radioButtonGroup">
+        <span>Schema:</span>
+        <div class="radioButtons">
+            <input type="radio" id="SalesLT" name="schema" value="SalesLT">
+            <label for="SalesLT">SalesLT</label>
+        </div>
+        <div class="radioButtons">
+            <input type="radio" id="Pubs" name="schema" value="Pubs">
+            <label for="Pubs">Pubs</label>
+        </div>
+    </div>
+
+    <div class="radioButtonGroup">
+        <span>User Id:</span>
+        <div class="radioButtons">
+            <input type="radio" id="id-aw-saleslt" name="userid" value="id-aw-saleslt">
+            <label for="id-aw-saleslt">id-aw-saleslt</label>
+        </div>
+        <div class="radioButtons">
+            <input type="radio" id="id-aw-pubs" name="userid" value="id-aw-pubs">
+            <label for="id-aw-pubs">id-aw-pubs</label>
+        </div>
+        <div class="radioButtons">
+            <input type="radio" id="uaid-test-3_c" name="userid" value="uaid-test-3_c">
+            <label for="uaid-test-3_c">uaid-test-3_c</label>
+        </div>
+        <div class="radioButtons">
+            <input type="radio" id="uaid-test-3_d" name="userid" value="uaid-test-3_d">
+            <label for="uaid-test-3_d">uaid-test-3_d</label>
+        </div>
+    </div>
+
+    <div class="submitButton">
+        <input type="submit" value="Submit" />
+    </div>
+
+    <span>@ViewData["query"]</span>
+    <pre class="queryResult">
+        @ViewData["queryResult"]
+    </pre>
+
+</form>
+
+<div class="pageLink">
+    <a asp-page="Index">←&nbsp;System-Assigned Managed Identity -SQL</a>
+</div>
