@@ -1,0 +1,14 @@
+# `dependabot.yml` file with
+# customized schedule for version updates
+
+version: 2
+updates:
+  # Keep npm dependencies up to date
+  - package-ecosystem: "npm"
+    directory: "/"
+    # Check the npm registry every week on Tuesday at 02:00 Japan Standard Time (UTC +09:00)
+    schedule:
+      interval: "weekly"
+      day: "tuesday"
+      time: "10:00"
+      timezone: "Asia/Tokyo"
