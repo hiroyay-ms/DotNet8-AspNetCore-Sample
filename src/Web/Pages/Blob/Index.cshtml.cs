@@ -37,7 +37,8 @@ public class IndexModel : PageModel
 
         try {           
             DefaultAzureCredential credential = new();
-            BlobContainerClient containerClient = new BlobContainerClient(new Uri($"{blobService}/{container}"), credential);
+            BlobServiceClient blobServiceClient = new BlobServiceClient(new System.Uri($"{blobService}"), credential);
+            BlobContainerClient containerClient = blobServiceClient.GetBlobContainerClient(container);
 
             var fileName = $"{Guid.NewGuid()}.txt";
 
