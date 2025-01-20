@@ -1,0 +1,29 @@
+name: Deploy API to Azure Functions
+
+on:
+  workflow_dispatch:
+    inputs:
+      resourceGroup:
+        description: 'リソース グループ名'
+        default: 'rg-test-3'
+        required: true
+        type: string
+      webAppName:
+        description: '関数アプリ名'
+        default: 'func-test-3'
+        required: true
+        type: string
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  build-and-deploy:
+    runs-on: self-hosted
+    steps:
+      - name: Install Functions Core Tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install azure-functions-core-tools-4
+
