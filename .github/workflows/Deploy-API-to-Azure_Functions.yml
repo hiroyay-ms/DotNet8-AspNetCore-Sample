@@ -8,7 +8,7 @@ on:
         default: 'rg-test-3'
         required: true
         type: string
-      webAppName:
+      functionAppName:
         description: '関数アプリ名'
         default: 'func-test-3'
         required: true
@@ -28,6 +28,15 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '8.0.x'
+          include-prerelease: true
+      
+      - name: Build with dotnet
+        run: dotnet build ${{ env.APP_PATH }} -c Release --output ${{ env.APP_PATH }}/output
+
       - name: Login to Azure
         uses: azure/login@v2
         with:
@@ -35,7 +44,11 @@ jobs:
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
-      - name: Publish
-        run: |
-          cd ${{ env.APP_PATH }}
-          ls
+      - name: Function app Publish
+        uses: Azure/functions-action@v1
+        id: deploy-to-azure-function
+        with:
+          app-name: ${{ github.event.inputs.functionAppName }}
+          package: ${{ env.APP_PATH }}/output
+          sku: flexconsumption
+          remote-build: true
