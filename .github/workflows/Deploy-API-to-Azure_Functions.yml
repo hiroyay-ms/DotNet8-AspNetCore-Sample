@@ -60,4 +60,4 @@ jobs:
           app-name: ${{ github.event.inputs.functionAppName }}
           package: ${{ env.APP_PATH }}/funcapp
           sku: flexconsumption
-          remote-build: true
+          remote-build: false
