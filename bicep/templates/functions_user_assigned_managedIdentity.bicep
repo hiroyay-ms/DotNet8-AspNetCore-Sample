@@ -1,5 +1,8 @@
 param managedIdentityName string
 param storageAccountName string
+param newOrExisting string
+param workspaceName string
+param appInsightsName string
 param planName string
 param functionName string
 param location string
@@ -38,6 +41,9 @@ module functionFlexConsumption '../modules/functions_flex_consumption_uami.bicep
   params: {
     managedIdentityName: managedIdentityName
     storageAccountName: storageAccountName
+    newOrExisting: newOrExisting
+    workspaceName: workspaceName
+    appInsightsName: appInsightsName
     planName: planName
     functionName: functionName
     location: location
