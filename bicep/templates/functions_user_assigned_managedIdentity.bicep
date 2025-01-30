@@ -33,7 +33,7 @@ module roleAssignment '../modules/role_assignment.bicep' = {
   ]
 }
 
-module functionFlexConsumption '../modules/functions_flex_consumption.bicep'= {
+module functionFlexConsumption '../modules/functions_flex_consumption_uami.bicep'= {
   name: 'functionFlexConsumption'
   params: {
     managedIdentityName: managedIdentityName
