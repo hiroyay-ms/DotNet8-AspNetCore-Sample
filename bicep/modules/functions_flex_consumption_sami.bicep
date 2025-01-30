@@ -78,7 +78,7 @@ resource functionApp 'Microsoft.Web/sites@2023-12-01'= {
     siteConfig: {
       appSettings: [
         {
-          name: 'AzureWebJobsStorage_accountName'
+          name: 'AzureWebJobsStorage__accountName'
           value: storageAccount.name
         }
         {
