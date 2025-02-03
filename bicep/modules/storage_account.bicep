@@ -1,3 +1,4 @@
+param resourceGroup_workspace string
 param storageAccountName string
 param functionName string
 param workspaceName string
@@ -57,6 +58,7 @@ resource container_secrets 'Microsoft.Storage/storageAccounts/blobServices/conta
 // ログの格納先となる Log Analytics ワークスペース
 resource logAnalyticsWorkspace 'Microsoft.OperationalInsights/workspaces@2023-09-01' existing = {
   name: workspaceName
+  scope: resourceGroup(resourceGroup_workspace)
 }
 
 // 診断設定 (ストレージ書き込みログとメトリックの取得)

@@ -1,5 +1,7 @@
+param resourceGroup_id string
 param managedIdentityName string
 param storageAccountName string
+param resourceGroup_workspace string
 param appInsightsName string
 param planName string
 param functionName string
@@ -15,6 +17,7 @@ param instanceMemoryMB int = 2048
 
 resource managedIdentity 'Microsoft.ManagedIdentity/userAssignedIdentities@2023-01-31' existing = {
   name: managedIdentityName
+  scope: resourceGroup(resourceGroup_id)
 }
 
 resource storageAccount 'Microsoft.Storage/storageAccounts@2023-05-01' existing = {
@@ -23,6 +26,7 @@ resource storageAccount 'Microsoft.Storage/storageAccounts@2023-05-01' existing 
 
 resource applicationInsights 'Microsoft.Insights/components@2020-02-02' existing = {
   name: appInsightsName
+  scope: resourceGroup(resourceGroup_workspace)
 }
 
 // プランの作成 (Flex 従量課金プラン)
