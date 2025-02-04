@@ -10,6 +10,7 @@ param aadAdminName = 'admin@example.onmicrosoft.com'
 // 管理者で指定したユーザーの SID
 param aadAdminId = 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'
 // 'sample' を指定した場合 Serverless レベルで AdventureWorkLT のサンプル データベースを作成、'new' の場合は空のデータベースを作成
+// 'sample' の場合、Serverless レベルで最大 1GB 容量のデータベースを作成のため SKU の指定は不要
 param dataSource = 'new'
 // dataSouce が 'new' の場合、データベースの名前を指定
 param databaseName = 'Pubs'
