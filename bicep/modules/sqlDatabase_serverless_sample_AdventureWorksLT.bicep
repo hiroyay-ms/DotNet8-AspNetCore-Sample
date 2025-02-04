@@ -1,7 +1,7 @@
 param sqlServerName string
 param location string
 
-resource sqlServer 'Microsoft.Sql/servers@2024-05-01-preview'existing = {
+resource sqlServer 'Microsoft.Sql/servers@2024-05-01-preview' existing = {
   name: sqlServerName
 }
 
