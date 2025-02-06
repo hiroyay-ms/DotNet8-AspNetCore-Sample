@@ -4,7 +4,6 @@ param functionName string
 param workspaceName string
 param location string
 
-
 // ストレージ アカウントの作成
 // ストレージ アカウント キーへのアクセスを無効化、Azure portal で Microsoft Entra 認可を既定にするを有効化
 resource storageAccount 'Microsoft.Storage/storageAccounts@2023-05-01' = {
