@@ -49,7 +49,7 @@ jobs:
           name: db-project
 
       - name: Deploy DACPAC to Azure
-        uses: azure/sql-action@2.3
+        uses: azure/sql-action@2.2
         with:
           connection-string: ${{ secrets.SQL_CONNECTION_STRING }}
           path: './SqlSampleDb.dacpac'
