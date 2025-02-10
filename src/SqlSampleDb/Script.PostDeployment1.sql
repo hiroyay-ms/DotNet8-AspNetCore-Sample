@@ -4601,3 +4601,14 @@ GO
 
 ALTER TABLE [dbo].[Suppliers] CHECK CONSTRAINT ALL
 GO
+
+UPDATE [dbo].[Orders] 
+SET OrderDate = DATEADD(year, 26, OrderDate), 
+	RequiredDate = DATEADD(year, 26, RequiredDate), 
+	ShippedDate = DATEADD(year, 26, ShippedDate)
+GO
+
+UPDATE [dbo].[Employees] 
+SET BirthDate = DATEADD(year, 30, BirthDate), 
+    HireDate = DATEADD(year, 15, HireDate)
+GO
