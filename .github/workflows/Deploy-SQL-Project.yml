@@ -14,19 +14,19 @@ jobs:
       PROJ_PATH: './src/SqlSampleDb'
   
       steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+        - name: Checkout code
+          uses: actions/checkout@v3
 
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: 8.0.x
-      
-      - name: Build DACPAC
-        run: dotnet build ${{ env.PROJ_PATH }}/SqlSampleDb.sqlproj -c Release
-      
-      - name: Upload artifact for deployment job
-        uses: actions/upload-artifact@v4
-        with:
-          name: db-project
-          path: ${{ env.PROJ_PATH}}/bin/Release
+        - name: Setup .NET
+          uses: actions/setup-dotnet@v4
+          with:
+            dotnet-version: 8.0.x
+        
+        - name: Build DACPAC
+          run: dotnet build ${{ env.PROJ_PATH }}/SqlSampleDb.sqlproj -c Release
+        
+        - name: Upload artifact for deployment job
+          uses: actions/upload-artifact@v4
+          with:
+            name: db-project
+            path: ${{ env.PROJ_PATH}}/bin/Release
