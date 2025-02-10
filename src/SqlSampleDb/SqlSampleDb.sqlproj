@@ -16,6 +16,7 @@
   <ItemGroup>
     <None Include="SqlSampleDb_1.publish.xml" />
   </ItemGroup>
+  <ItemGroup />
   <Target Name="BeforeBuild">
     <Delete Files="$(BaseIntermediateOutputPath)\project.assets.json" />
   </Target>
