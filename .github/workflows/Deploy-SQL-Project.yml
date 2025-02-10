@@ -2,6 +2,17 @@ name: Deploy SQL Database Project
 
 on:
   workflow_dispatch:
+    inputs:
+      sqlServerName:
+        description: 'SQL Server 名'
+        default: 'sql-test-3-svr'
+        required: true
+        type: string
+      databaseName:
+        description: データベース名'
+        default: 'Northwind'
+        required: true
+        type: string
 
 permissions:
   id-token: write
@@ -59,7 +70,7 @@ jobs:
 
       - name: Deploy DACPAC to Azure
         run: |
-          $HOME/.dotnet/tools/sqlpackage /Action:Publish /SourceFile:./SqlSampleDb.dacpac /TargetConnectionString:"${{ secrets.SQL_CONNECTION_STRING }}" /p:DropObjectsNotInSource=false
+          $HOME/.dotnet/tools/sqlpackage /Action:Publish /SourceFile:./SqlSampleDb.dacpac /TargetConnectionString:"Server=tcp:${{ github.event.inputs.sqlServerName }}.database.windows.net,1433; Initial Catalog=${{ github.event.inputs.databaseName }}; Authentication=Active Directory Default; Encrypt=True; TrustServerCertificate=False; Connection Timeout=30;" /p:DropObjectsNotInSource=false
       
       - name: Logout from Azure
         run: az logout
