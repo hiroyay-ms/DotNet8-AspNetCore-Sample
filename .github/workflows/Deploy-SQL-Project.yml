@@ -56,13 +56,6 @@ jobs:
         run: |
           dotnet tool install -g microsoft.sqlpackage
       
-      - name: Login to Azure
-        uses: azure/login@v2
-        with:
-          client-id: ${{ secrets.AZURE_CLIENT_ID }}
-          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-      
       - name: Download artifact
         uses: actions/download-artifact@v4
         with:
@@ -71,6 +64,3 @@ jobs:
       - name: Deploy DACPAC to Azure
         run: |
           $HOME/.dotnet/tools/sqlpackage /Action:Publish /SourceFile:./SqlSampleDb.dacpac /TargetConnectionString:"Server=tcp:${{ github.event.inputs.sqlServerName }}.database.windows.net,1433; Initial Catalog=${{ github.event.inputs.databaseName }}; Authentication=Active Directory Default; Encrypt=True; TrustServerCertificate=False; Connection Timeout=30;" /p:DropObjectsNotInSource=false
-      
-      - name: Logout from Azure
-        run: az logout
