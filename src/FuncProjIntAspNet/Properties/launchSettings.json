@@ -1,9 +1,0 @@
-{
-  "profiles": {
-    "FuncProjIntAspNet": {
-      "commandName": "Project",
-      "commandLineArgs": "--port 7190",
-      "launchBrowser": false
-    }
-  }
-}
