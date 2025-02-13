@@ -11,11 +11,13 @@ namespace Web.Pages.Api;
 public class IndexModel : PageModel
 {
     private readonly ILogger<IndexModel> _logger;
+    private readonly IConfiguration _configuration;
      private readonly IHttpClientFactory _httpClientFactory;
 
-    public IndexModel(ILogger<IndexModel> logger, IHttpClientFactory httpClientFactory)
+    public IndexModel(ILogger<IndexModel> logger, IConfiguration configuration, IHttpClientFactory httpClientFactory)
     {
         _logger = logger;
+        _configuration = configuration;
         _httpClientFactory = httpClientFactory;
     }
 
@@ -29,8 +31,10 @@ public class IndexModel : PageModel
             return;
         }
 
-        var httpClient = _httpClientFactory.CreateClient("api");
-        var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, $"api/category");
+        var baseUrl = _configuration.GetValue<string>("API_BASE_ADDRESS") ?? throw new InvalidOperationException("Environment variable 'API_BASE_ADDRESS' not found.");
+
+        var httpClient = _httpClientFactory.CreateClient();
+        var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, $"{baseUrl}api/category");
         httpRequestMessage.Headers.Add("x-tenant-id", tenant);
 
         var response = await httpClient.SendAsync(httpRequestMessage);
@@ -41,7 +45,7 @@ public class IndexModel : PageModel
         }
         else
         {
-            ViewData["queryResult"] = $"Error: {response.StatusCode}";
+            ViewData["queryResult"] = $"Error: {response.ReasonPhrase}";
         }
     }
 }

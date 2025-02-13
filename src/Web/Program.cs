@@ -14,6 +14,9 @@ builder.Services.AddSingleton<ITelemetryInitializer, AppInsightsTelemetryInitial
 var connectionString = builder.Configuration["SQL_CONNECTION_STRING"] ?? throw new InvalidOperationException("Connection string 'SQL_CONNECTION_STRING' not found.");
 builder.Services.AddDbContext<AdventureWorksContext>(options => options.UseSqlServer(connectionString));
 
+var baseAddress = builder.Configuration["API_BASE_ADDRESS"] ?? throw new InvalidOperationException("API base address 'API_BASE_ADDRESS' not found.");
+builder.Services.AddHttpClient();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
