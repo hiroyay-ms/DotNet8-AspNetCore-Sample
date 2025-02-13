@@ -30,9 +30,8 @@ public class IndexModel : PageModel
         }
 
         var httpClient = _httpClientFactory.CreateClient("api");
-        httpClient.DefaultRequestHeaders.Add("x-tenant-id", tenant);
-
         var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, $"api/category");
+        httpRequestMessage.Headers.Add("x-tenant-id", tenant);
 
         var response = await httpClient.SendAsync(httpRequestMessage);
 
