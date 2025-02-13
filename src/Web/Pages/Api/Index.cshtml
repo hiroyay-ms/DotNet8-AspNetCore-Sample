@@ -1,0 +1,38 @@
+@page
+@model Web.Pages.Api.IndexModel
+@{
+    ViewData["Title"] = "Call a Web API";
+}
+
+<h2 class="pageTitle">Call a Web API</h2>
+
+<p class="pageDescription">This page demonstrates how to call a Web API from a web app</p>
+
+<form method="get">
+
+    <div class="radioButtonGroup">
+        <span>Tenant:</span>
+        <div class="radioButtons">
+            <input type="radio" id="Contoso" name="tenant" value="Contoso">
+            <label for="Contoso">Contoso</label>
+        </div>
+        <div class="radioButtons">
+            <input type="radio" id="Fabrikam" name="tenant" value="Fabrikam">
+            <label for="Fabrikam">Fabrikam</label>
+        </div>
+        <div class="radioButtons">
+            <input type="radio" id="Fourth Coffee" name="tenant" value="Fourth Coffee">
+            <label for="Fourth Coffee">Fourth Coffee</label>
+        </div>
+    </div>
+
+    <div class="submitButton">
+        <input type="submit" value="Submit" />
+    </div>
+
+    <span>@ViewData["query"]</span>
+    <pre class="queryResult">
+        @ViewData["queryResult"]
+    </pre>
+
+</form>
