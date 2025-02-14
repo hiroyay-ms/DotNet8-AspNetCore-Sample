@@ -41,7 +41,14 @@ public class IndexModel : PageModel
 
         if (response.IsSuccessStatusCode)
         {
-            ViewData["queryResult"] = await response.Content.ReadAsStringAsync();
+            var obj = JsonSerializer.Deserialize<object>(await response.Content.ReadAsStringAsync());
+            var options = new JsonSerializerOptions
+            {
+                Encoder = JavaScriptEncoder.Create(UnicodeRanges.All),
+                WriteIndented = true
+            };
+
+            ViewData["queryResult"] = JsonSerializer.Serialize(obj, options);
         }
         else
         {
