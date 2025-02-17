@@ -3,6 +3,13 @@ name: Deploy Web API
 on:
   workflow_dispatch:
     inputs:
+      sourcePath:
+        description: '展開するソースのパス'
+        required: true
+        default: './src/ApplicationInsghts.Demo/Api'
+        options:
+          - './src/ApplicationInsghts.Demo/Api'
+          - './src/OpenTelemetry.Demo/Api'
       resourceGroup:
         description: 'リソース グループ名'
         default: 'rg-test-3'
@@ -22,7 +29,7 @@ jobs:
   build:
     runs-on: self-hosted
     env:
-      APP_PATH: './src/Api'
+      APP_PATH: ${{ github.event.inputs.sourcePath }}
 
 
     steps:
