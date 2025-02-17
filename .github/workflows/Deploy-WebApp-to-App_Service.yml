@@ -7,6 +7,7 @@ on:
         description: '展開するソースのパス'
         required: true
         default: './src/ApplicationInsghts.Demo/Web'
+        type: choice
         options:
           - './src/ApplicationInsghts.Demo/Web'
           - './src/OpenTelemetry.Demo/Web'
