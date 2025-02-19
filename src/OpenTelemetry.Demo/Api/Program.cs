@@ -17,6 +17,6 @@ builder.Services.AddDbContext<AdventureWorksContext>(options => options.UseSqlSe
 
 var app = builder.Build();
 
-app.MapGet("/", () => "Hello World!");
+app.RegisterProductEndpoints();
 
 app.Run();
