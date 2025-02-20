@@ -12,8 +12,23 @@ builder.Services.ConfigureOpenTelemetryTracerProvider((sp, tracerProviderBuilder
 });
 builder.Services.AddOpenTelemetry().UseAzureMonitor();
 
-var connectionString = builder.Configuration["SQL_CONNECTION_STRING"] ?? throw new InvalidOperationException("Connection string 'SQL_CONNECTION_STRING' not found.");
-builder.Services.AddDbContext<AdventureWorksContext>(options => options.UseSqlServer(connectionString));
+//builder.Services.AddDbContext<AdventureWorksContext>();
+
+builder.Services.AddDbContext<AdventureWorksContext>((serviceProvider, options) =>
+{
+    var connectionString = builder.Configuration["SQL_CONNECTION_STRING"] ?? throw new InvalidOperationException("Connection string 'SQL_CONNECTION_STRING' not found.");
+
+    var httpContext = serviceProvider.GetRequiredService<IHttpContextAccessor>().HttpContext;
+    var httpRequest = httpContext.Request;
+    var serverName = httpRequest.Headers["x-server-name"];
+
+    if (!string.IsNullOrEmpty(serverName))
+    {
+        connectionString = $"Server=tcp:{serverName}.database.windows.net,1433;Initial Catalog=AdventureWorksLT;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;Authentication=Active Directory Default;";
+    }
+
+    options.UseSqlServer(connectionString);
+});
 
 var app = builder.Build();
 
