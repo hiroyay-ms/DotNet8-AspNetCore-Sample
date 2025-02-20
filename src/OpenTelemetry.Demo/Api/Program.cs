@@ -12,8 +12,6 @@ builder.Services.ConfigureOpenTelemetryTracerProvider((sp, tracerProviderBuilder
 });
 builder.Services.AddOpenTelemetry().UseAzureMonitor();
 
-//builder.Services.AddDbContext<AdventureWorksContext>();
-
 builder.Services.AddDbContext<AdventureWorksContext>((serviceProvider, options) =>
 {
     var connectionString = builder.Configuration["SQL_CONNECTION_STRING"] ?? throw new InvalidOperationException("Connection string 'SQL_CONNECTION_STRING' not found.");
