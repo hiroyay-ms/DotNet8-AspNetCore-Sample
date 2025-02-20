@@ -10,17 +10,7 @@ public class AdventureWorksContext : DbContext
     public AdventureWorksContext(DbContextOptions<AdventureWorksContext> options)
         : base(options)
     {
-        //_httpContext = httpContextAccessor?.HttpContext;
     }
-
-    /*protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        if (!optionsBuilder.IsConfigured)
-        {
-            var serverName = _httpContext?.Request.Headers["x-server-name"];
-            optionsBuilder.UseSqlServer($"Server=tcp:{serverName}.database.windows.net,1433;Initial Catalog=AdventureWorksLT;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;Authentication=Active Directory Default;");
-        }
-    }*/
 
     public DbSet<ProductCategory> ProductCategory => Set<ProductCategory>();
     public DbSet<ProductModel> ProductModel => Set<ProductModel>();
