@@ -6,11 +6,6 @@ namespace FuncProjIntAspNet.Data;
 
 public class AdventureWorksContext : DbContext
 {
-    /*public AdventureWorksContext(DbContextOptions<AdventureWorksContext> options)
-        : base(options)
-    {
-    }*/
-
     private readonly HttpContext _httpContext;
     public AdventureWorksContext(DbContextOptions<AdventureWorksContext> options, IHttpContextAccessor httpContextAccessor = null)
         : base(options)
@@ -25,10 +20,10 @@ public class AdventureWorksContext : DbContext
             var connectionString = Environment.GetEnvironmentVariable("SQL_CONNECTION_STRING") ?? throw new InvalidOperationException("Connection string 'SQL_CONNECTION_STRING' not found.");
 
             var serverName = _httpContext?.Request.Headers["x-server-name"];
-            if (!string.IsNullOrEmpty(serverName))
-            {
-                connectionString = $"Server=tcp:{serverName}.database.windows.net,1433;Initial Catalog=AdventureWorksLT;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;Authentication=Active Directory Default;";
-            }
+            if (string.IsNullOrEmpty(serverName))
+                serverName = Environment.GetEnvironmentVariable("DEFAULT_SERVER_NAME") ?? "localhost";
+
+            connectionString = string.Format(connectionString, serverName);
             optionsBuilder.UseSqlServer(connectionString);
         }
     }
