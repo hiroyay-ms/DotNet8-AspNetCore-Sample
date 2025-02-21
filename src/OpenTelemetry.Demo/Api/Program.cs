@@ -17,8 +17,8 @@ builder.Services.AddDbContext<AdventureWorksContext>((serviceProvider, options) 
     var connectionString = builder.Configuration["SQL_CONNECTION_STRING"] ?? throw new InvalidOperationException("Connection string 'SQL_CONNECTION_STRING' not found.");
 
     var httpContext = serviceProvider.GetRequiredService<IHttpContextAccessor>().HttpContext;
-    var httpRequest = httpContext.Request;
-    var serverName = httpRequest.Headers["x-server-name"];
+    var httpRequest = httpContext?.Request;
+    var serverName = httpRequest?.Headers["x-server-name"];
 
     if (!string.IsNullOrEmpty(serverName))
     {
@@ -31,5 +31,6 @@ builder.Services.AddDbContext<AdventureWorksContext>((serviceProvider, options) 
 var app = builder.Build();
 
 app.RegisterProductEndpoints();
+app.RegisterPubsEndpoints();
 
 app.Run();

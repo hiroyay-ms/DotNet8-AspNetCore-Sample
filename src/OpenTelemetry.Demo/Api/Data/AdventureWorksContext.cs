@@ -6,7 +6,6 @@ namespace Api.Data;
 
 public class AdventureWorksContext : DbContext
 {
-    private readonly HttpContext _httpContext;
     public AdventureWorksContext(DbContextOptions<AdventureWorksContext> options)
         : base(options)
     {
@@ -23,6 +22,7 @@ public class AdventureWorksContext : DbContext
     public DbSet<SalesOrderDetail> SalesOrderDetail => Set<SalesOrderDetail>();
 
     public DbSet<Titles> Titles => Set<Titles>();
+    public DbSet<Publishers> Publishers => Set<Publishers>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -36,5 +36,6 @@ public class AdventureWorksContext : DbContext
         modelBuilder.Entity<SalesOrderHeader>().ToTable("SalesOrderHeader", "SalesLT");
         modelBuilder.Entity<SalesOrderDetail>().ToTable("SalesOrderDetail", "SalesLT");
         modelBuilder.Entity<Titles>().ToTable("titles", "Pubs");
+        modelBuilder.Entity<Publishers>().ToTable("publishers", "Pubs");
     }
 }
