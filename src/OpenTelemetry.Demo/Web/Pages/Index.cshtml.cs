@@ -16,6 +16,14 @@ public class IndexModel : PageModel
 
     public void OnGet()
     {
-
+        if (User.Identity?.IsAuthenticated == true)
+        {
+            _logger.LogInformation("User is authenticated");
+            User.Claims.ToList().ForEach(claim => _logger.LogInformation($"{claim.Type}: {claim.Value}"));
+        }
+        else
+        {
+            _logger.LogInformation("User is not authenticated");
+        }
     }
 }
