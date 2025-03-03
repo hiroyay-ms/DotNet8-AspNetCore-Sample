@@ -6,11 +6,7 @@ namespace FuncCustomClaimProvider.Models;
 public class Claims
 {
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string CorrelationId { get; set; }
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? TenantId { get; set; }
-    public string? TenantName { get; set; }
-    public string? PricingLevel { get; set;}
+    public string? tenantGuid { get; set; }
 }
 
 public class Action

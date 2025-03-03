@@ -38,7 +38,7 @@ namespace FuncCustomClaimProvider
             //_logger.LogInformation($"Domain: {domain}");
 
             ResponseContent responseContent = new ResponseContent();
-            responseContent.data.actions[0].claims.TenantId = Guid.NewGuid().ToString();
+            responseContent.data.actions[0].claims.tenantGuid = Guid.NewGuid().ToString();
 
             return TypedResults.Ok(responseContent);
         }
