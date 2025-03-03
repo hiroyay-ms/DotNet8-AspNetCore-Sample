@@ -1,0 +1,20 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <div>
+        <p>
+            <b>X-MS-TOKEN-AAD-ID-TOKEN:</b><br />
+            @Request.Headers["X-MS-TOKEN-AAD-ID-TOKEN"]
+        </p>
+        <p>
+            <b>X-MS-TOKEN-AAD-ACCESS-TOKEN:</b><br />
+            @Request.Headers["X-MS-TOKEN-AAD-ACCESS-TOKEN"]
+        </p>
+    </div>
+</div>
