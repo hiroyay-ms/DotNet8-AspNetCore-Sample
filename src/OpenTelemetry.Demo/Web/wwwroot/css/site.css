@@ -20,3 +20,24 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+h2.pageTitle {
+  margin: 20px 0 5px 0;
+  color: #00bcd4;
+}
+
+p.pageDescription {
+  margin: 0 0 30px 0;
+  color: #999999;
+}
+
+div.tokenClaims {
+  background-color: #eee;
+  border: 1px solid #000;
+  height: 450px;
+  margin: 0 0 20px 0;
+  overflow-x: scroll;
+  padding: 10px 10px 20px 10px;
+  text-align: left;
+  white-space: nowrap;
+}
