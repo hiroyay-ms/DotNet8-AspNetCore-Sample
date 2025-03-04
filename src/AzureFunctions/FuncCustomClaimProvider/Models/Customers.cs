@@ -20,4 +20,6 @@ public class Customers
 
     [Required]
     public string ServicePlan { get; set; } = string.Empty;
+
+    public bool? TenantEnablement { get; set; }
 }

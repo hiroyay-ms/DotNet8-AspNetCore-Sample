@@ -41,9 +41,9 @@ namespace FuncCustomClaimProvider
             _logger.LogInformation($"User domain: {domain}");
 
             var query = from c in _context.Customers
-                        where c.EmailAddressDomain == domain
+                        where c.EmailAddressDomain == domain && c.TenantEnablement == true 
                         select c;
-            
+
             var customer = await query.FirstOrDefaultAsync();
 
             ResponseContent responseContent = new ResponseContent();
