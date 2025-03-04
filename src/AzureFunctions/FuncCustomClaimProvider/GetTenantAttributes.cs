@@ -41,7 +41,7 @@ namespace FuncCustomClaimProvider
             _logger.LogInformation($"User domain: {domain}");
 
             var query = from c in _context.Customers
-                        where c.EmailAddressDomain == domain && c.TenantEnablement == true 
+                        where c.EmailAddressDomain == domain  
                         select c;
 
             var customer = await query.FirstOrDefaultAsync();
@@ -49,6 +49,7 @@ namespace FuncCustomClaimProvider
             ResponseContent responseContent = new ResponseContent();
             responseContent.data.actions[0].claims.tenantGuid = customer?.CustomerGuid;
             responseContent.data.actions[0].claims.servicePlan = customer?.ServicePlan;
+            responseContent.data.actions[0].claims.tenantEnablement = customer?.TenantEnablement;
 
             string jsonString = JsonSerializer.Serialize(responseContent);
             _logger.LogInformation($"Response body: {jsonString}");
