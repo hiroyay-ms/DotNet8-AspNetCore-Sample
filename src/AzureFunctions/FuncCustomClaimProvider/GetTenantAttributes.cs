@@ -29,16 +29,18 @@ namespace FuncCustomClaimProvider
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
             _logger.LogInformation($"Request body: {requestBody}");
 
-            dynamic data = JsonNode.Parse(requestBody);
+            dynamic data = JsonNode.Parse(requestBody) ?? throw new InvalidOperationException("Invalid request body.");
 
-            //string userPrincipalName = data?.data.authenticationContext.user.userPrincipalName;
-            //string domain = userPrincipalName?.Substring(userPrincipalName.IndexOf('@') + 1);
+            string mail = data?.data.authenticationContext.user.mail ?? throw new InvalidOperationException("user.mail was not found.");
+            string domain = mail?.Substring(mail.IndexOf('@') + 1) ?? throw new InvalidOperationException("Invalid mail.");
 
-            //_logger.LogInformation($"User principal name: {userPrincipalName}");
-            //_logger.LogInformation($"Domain: {domain}");
+            _logger.LogInformation($"Domain: {domain}");
 
             ResponseContent responseContent = new ResponseContent();
             responseContent.data.actions[0].claims.tenantGuid = Guid.NewGuid().ToString();
+
+            string jsonString = JsonSerializer.Serialize(responseContent);
+            _logger.LogInformation($"Response body: {jsonString}");
 
             return TypedResults.Ok(responseContent);
         }
