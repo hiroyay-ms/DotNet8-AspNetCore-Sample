@@ -49,7 +49,6 @@ namespace FuncCustomClaimProvider
             ResponseContent responseContent = new ResponseContent();
             responseContent.data.actions[0].claims.tenantGuid = customer?.CustomerGuid;
             responseContent.data.actions[0].claims.servicePlan = customer?.ServicePlan;
-            responseContent.data.actions[0].claims.tenantEnablement = customer?.TenantEnablement;
 
             string jsonString = JsonSerializer.Serialize(responseContent);
             _logger.LogInformation($"Response body: {jsonString}");

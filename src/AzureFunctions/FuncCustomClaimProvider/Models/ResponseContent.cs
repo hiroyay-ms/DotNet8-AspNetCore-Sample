@@ -9,8 +9,6 @@ public class Claims
     public string? tenantGuid { get; set; }
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string? servicePlan { get; set; }
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public bool? tenantEnablement { get; set; }
 }
 
 public class Action
