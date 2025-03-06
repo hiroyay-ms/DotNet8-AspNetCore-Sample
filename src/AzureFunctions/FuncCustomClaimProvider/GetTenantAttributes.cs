@@ -51,9 +51,9 @@ namespace FuncCustomClaimProvider
             responseContent.data.actions[0].claims.servicePlan = customer?.ServicePlan;
 
             if (customer != null && customer.TenantEnablement == true)
-                responseContent.data.actions[0].claims.tenantEnablement = 1;
+                responseContent.data.actions[0].claims.tenantEnablement = "Enabled";
             else
-                responseContent.data.actions[0].claims.tenantEnablement = 0;
+                responseContent.data.actions[0].claims.tenantEnablement = "Disabled";
 
             string jsonString = JsonSerializer.Serialize(responseContent);
             _logger.LogInformation($"Response body: {jsonString}");
