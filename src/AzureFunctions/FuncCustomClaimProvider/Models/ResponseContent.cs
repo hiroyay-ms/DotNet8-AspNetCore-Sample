@@ -7,8 +7,12 @@ public class Claims
 {
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string? tenantGuid { get; set; }
+    
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string? servicePlan { get; set; }
+
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public int? tenantEnablement { get; set; }
 }
 
 public class Action

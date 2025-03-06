@@ -50,6 +50,11 @@ namespace FuncCustomClaimProvider
             responseContent.data.actions[0].claims.tenantGuid = customer?.CustomerGuid;
             responseContent.data.actions[0].claims.servicePlan = customer?.ServicePlan;
 
+            if (customer != null && customer.TenantEnablement == true)
+                responseContent.data.actions[0].claims.tenantEnablement = 1;
+            else
+                responseContent.data.actions[0].claims.tenantEnablement = 0;
+
             string jsonString = JsonSerializer.Serialize(responseContent);
             _logger.LogInformation($"Response body: {jsonString}");
 
