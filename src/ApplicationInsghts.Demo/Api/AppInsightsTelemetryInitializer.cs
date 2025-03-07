@@ -20,6 +20,6 @@ public class AppInsightsTelemetryInitializer : ITelemetryInitializer
 
         var reqeustTelemetry = telemetry as RequestTelemetry;
         if (reqeustTelemetry != null)
-            reqeustTelemetry.Properties["TeanantId"] = _httpContextAccessor.HttpContext?.Request.Headers["x-tenant-id"];
+            reqeustTelemetry.Properties["TenantId"] = _httpContextAccessor.HttpContext?.Request.Headers["x-tenant-id"];
     }
 }
