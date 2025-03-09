@@ -41,3 +41,22 @@ div.tokenClaims {
   text-align: left;
   white-space: nowrap;
 }
+
+div.accessToken {
+  background-color: #eee;
+  border: 1px solid #000;
+  height: 200px;
+  margin: 0 0 20px 0;
+  overflow-y: scroll;
+  overflow-wrap: anywhere;
+  padding: 10px 10px 20px 10px;
+  text-align: left;
+}
+
+pre.apiResult {
+  background-color: #eee;
+  border: 1px solid #000;
+  height: 450px;
+  margin: 0 0 20px 0;
+  padding: 10px 10px 20px 10px;
+}

@@ -20,6 +20,12 @@ builder.Services.AddAuthorization(options =>
     options.FallbackPolicy = options.DefaultPolicy;
 });
 
+var baseAddress = builder.Configuration["API_BASE_ADDRESS"] ?? throw new InvalidOperationException("API base address 'API_BASE_ADDRESS' not found.");
+builder.Services.AddHttpClient("BackendApi", client =>
+{
+    client.BaseAddress = new Uri(baseAddress);
+});
+
 builder.Services.AddRazorPages()
     .AddMicrosoftIdentityUI();
 
