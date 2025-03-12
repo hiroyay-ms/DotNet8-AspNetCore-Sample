@@ -8,6 +8,8 @@ using System.IdentityModel.Tokens.Jwt;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddHttpContextAccessor();
+
 JwtSecurityTokenHandler.DefaultMapInboundClaims = false;
 
 builder.Services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
@@ -15,10 +17,10 @@ builder.Services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
     .EnableTokenAcquisitionToCallDownstreamApi()
     .AddInMemoryTokenCaches();
 
-builder.Services.AddAuthorization(options =>
-{
-    options.FallbackPolicy = options.DefaultPolicy;
-});
+ builder.Services.AddAuthorization(options =>
+ {
+     options.FallbackPolicy = options.DefaultPolicy;
+ });
 
 var baseAddress = builder.Configuration["API_BASE_ADDRESS"] ?? throw new InvalidOperationException("API base address 'API_BASE_ADDRESS' not found.");
 builder.Services.AddHttpClient("BackendApi", client =>
