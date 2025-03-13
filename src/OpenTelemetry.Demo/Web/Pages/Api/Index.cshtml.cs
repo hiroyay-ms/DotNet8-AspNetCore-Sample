@@ -27,15 +27,17 @@ public class IndexModel : PageModel
 
     public async Task OnGet()
     {
-        string[] scopes = new []{ "api://5ec994ee-6531-434e-a531-223a88268996/access_as_user" };
-        string accessToken = await _tokenAcquisition.GetAccessTokenForUserAsync(scopes, user: User);
+        // string[] scopes = new []{ "api://5ec994ee-6531-434e-a531-223a88268996/access_as_user" };
+        var application_id_uri = _configuration.GetValue<string>("APPLICATION_ID_URI") ?? throw new InvalidOperationException("Application ID URI 'APPLICATION_ID_URI' not found.");
+        string[] scopes = new []{ $"{application_id_uri}/Data.Read.All" };
+
+        _logger.LogInformation($"Scopes: {application_id_uri}");
+
+        string accessToken = await _tokenAcquisition.GetAccessTokenForUserAsync(scopes);
 
         ViewData["AccessToken"] = accessToken;
 
         _logger.LogInformation($"Access Token: {accessToken}");
-
-        // string tenantId = User.Claims.ToList().Find(c => c.Type == "tenantId")?.Value ?? throw new InvalidOperationException("Tenant ID claim not found.");
-        // _logger.LogInformation($"Tenant ID: {tenantId}");
 
         string servicePlan = User.Claims.ToList().Find(c => c.Type == "servicePlan")?.Value ?? throw new InvalidOperationException("Service plan claim not found.");
         _logger.LogInformation($"Service Plan: {servicePlan}");
@@ -47,9 +49,6 @@ public class IndexModel : PageModel
         httpClient.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", key);
 
         var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, $"api/category");
-
-        //var httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, $"api/category?tenantId={tenantId}");
-        // httpRequestMessage.Headers.Add("Ocp-Apim-Subscription-Key", key);
 
         var httpResponseMessage = await httpClient.SendAsync(httpRequestMessage);
 
