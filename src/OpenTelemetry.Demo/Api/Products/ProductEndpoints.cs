@@ -11,7 +11,8 @@ public static class ProductEndpoints
     {
         app.MapGet("/api/category", GetProductCategories)
             .WithName("GetProductCategories")
-            .WithOpenApi();
+            .WithOpenApi()
+            .RequireAuthorization();
         
         app.MapGet("/api/category/{category}", GetProductCategoryByName)
             .WithName("GetProductCategoryByName")

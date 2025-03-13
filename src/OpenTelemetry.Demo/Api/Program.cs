@@ -1,5 +1,7 @@
 using Azure.Monitor.OpenTelemetry.AspNetCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Web;
 using OpenTelemetry.Trace;
 using Api.Data;
 
@@ -11,6 +13,18 @@ builder.Services.ConfigureOpenTelemetryTracerProvider((sp, tracerProviderBuilder
     tracerProviderBuilder.AddProcessor(new LogsWithTenantIdProcessor(new HttpContextAccessor()));
 });
 builder.Services.AddOpenTelemetry().UseAzureMonitor();
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddMicrosoftIdentityWebApi(options =>
+    {
+        builder.Configuration.Bind("AzureAd", options);
+        options.TokenValidationParameters.NameClaimType = "name";
+    }, options => { builder.Configuration.Bind("AzureAd", options); });
+
+builder.Services.AddAuthorization(config =>
+{
+    config.AddPolicy("AuthZPolicy", policy => policy.RequireRole("Data.Read.All"));
+});
 
 builder.Services.AddDbContext<AdventureWorksContext>((serviceProvider, options) =>
 {
@@ -29,6 +43,9 @@ builder.Services.AddDbContext<AdventureWorksContext>((serviceProvider, options) 
 });
 
 var app = builder.Build();
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.RegisterProductEndpoints();
 app.RegisterPubsEndpoints();
