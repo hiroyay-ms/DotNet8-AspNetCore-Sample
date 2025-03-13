@@ -7,13 +7,6 @@ using Api.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddHttpContextAccessor();
-builder.Services.ConfigureOpenTelemetryTracerProvider((sp, tracerProviderBuilder) => {
-    tracerProviderBuilder.AddSource("OpenTelemetry.Demo.Api");
-    tracerProviderBuilder.AddProcessor(new LogsWithTenantIdProcessor(new HttpContextAccessor()));
-});
-builder.Services.AddOpenTelemetry().UseAzureMonitor();
-
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddMicrosoftIdentityWebApi(options =>
     {
@@ -25,6 +18,13 @@ builder.Services.AddAuthorization(config =>
 {
     config.AddPolicy("AuthZPolicy", policy => policy.RequireRole("Data.Read.All"));
 });
+
+builder.Services.AddHttpContextAccessor();
+builder.Services.ConfigureOpenTelemetryTracerProvider((sp, tracerProviderBuilder) => {
+    tracerProviderBuilder.AddSource("OpenTelemetry.Demo.Api");
+    tracerProviderBuilder.AddProcessor(new LogsWithTenantIdProcessor(new HttpContextAccessor()));
+});
+builder.Services.AddOpenTelemetry().UseAzureMonitor();
 
 builder.Services.AddDbContext<AdventureWorksContext>((serviceProvider, options) =>
 {
