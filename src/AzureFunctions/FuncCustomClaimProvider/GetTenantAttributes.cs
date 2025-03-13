@@ -34,10 +34,10 @@ namespace FuncCustomClaimProvider
 
             var node = JsonNode.Parse(requestBody) ?? throw new InvalidOperationException("Invalid request body.");
 
-            string? userName = node["data"]?["authenticationContext"]?["user"]?["preferred_username"]?.GetValue<string>();
-            _logger.LogInformation($"User: {userName}");
+            string? mail = node["data"]?["authenticationContext"]?["user"]?["mail"]?.GetValue<string>();
+            _logger.LogInformation($"User mail: {mail}");
 
-            string? domain = userName?.Substring(userName.IndexOf('@') + 1);
+            string? domain = mail?.Substring(mail.IndexOf('@') + 1);
             _logger.LogInformation($"User domain: {domain}");
 
             var query = from c in _context.Customers
