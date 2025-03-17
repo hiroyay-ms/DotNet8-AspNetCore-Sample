@@ -15,7 +15,6 @@ internal class LogsWithTenantIdProcessor : BaseProcessor<Activity>
 
     public override void OnEnd(Activity activity)
     {
-        //var tenantId = _httpContextAccessor.HttpContext?.Request.Headers["x-tenant-id"];
         string tenantId = _httpContextAccessor.HttpContext?.User.Claims.ToList().Find(c => c.Type == "tenantId")?.Value ?? "Unknown";
         activity.SetTag("TenantId", tenantId);
     }
