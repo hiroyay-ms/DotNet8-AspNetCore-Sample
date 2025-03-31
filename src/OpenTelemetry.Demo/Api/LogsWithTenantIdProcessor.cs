@@ -15,6 +15,7 @@ internal class LogsWithTenantIdProcessor : BaseProcessor<Activity>
 
     public override void OnEnd(Activity activity)
     {
+        // クレームからテナント ID を取得して、ログへ追加
         string tenantId = _httpContextAccessor.HttpContext?.User.Claims.ToList().Find(c => c.Type == "tenantId")?.Value ?? "Unknown";
         activity.SetTag("TenantId", tenantId);
     }
