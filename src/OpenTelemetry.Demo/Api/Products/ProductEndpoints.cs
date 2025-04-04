@@ -24,7 +24,7 @@ public static class ProductEndpoints
             .WithOpenApi();
     }
 
-    static async Task<IResult> GetProductCategories(AdventureWorksContext db, [FromServices] ILogger logger)
+    static async Task<IResult> GetProductCategories(AdventureWorksContext db, [FromServices] ILoggerFactory loggerFactory)
     {
         var query = from a in db.ProductCategory 
                     join b in db.ProductCategory on a.ProductCategoryID equals b.ParentProductCategoryID 
@@ -41,12 +41,13 @@ public static class ProductEndpoints
 
         var productCategories = await query.ToListAsync();
 
-        logger.LogInformation("Product categories count: {Count}", productCategories.Count);
+        var logger = loggerFactory.CreateLogger(nameof(ProductEndpoints));
+        logger.LogInformation($"Product categories count: {productCategories.Count}");
         
         return productCategories.Count == 0 ? TypedResults.NotFound() : TypedResults.Ok(productCategories);
     }
 
-    static async Task<IResult> GetProductCategoryByName(string category, AdventureWorksContext db, [FromServices] ILogger logger)
+    static async Task<IResult> GetProductCategoryByName(string category, AdventureWorksContext db)
     {
         if (string.IsNullOrEmpty(category))
             return TypedResults.BadRequest();
@@ -67,12 +68,10 @@ public static class ProductEndpoints
 
         var productCategories = await query.ToListAsync();
 
-        logger.LogInformation("Product categories count: {Count}", productCategories.Count);
-
         return TypedResults.Ok(productCategories);
     }
 
-    static async Task<IResult> GetProductsByCategoryId(int id, AdventureWorksContext db, [FromServices] ILogger logger)
+    static async Task<IResult> GetProductsByCategoryId(int id, AdventureWorksContext db)
     {
         if (id < 5)
              return TypedResults.BadRequest();
@@ -104,8 +103,6 @@ public static class ProductEndpoints
                     };
         
         var products = await query.ToListAsync();
-
-        logger.LogInformation("Products count: {Count}", products.Count);
 
         return products.Count == 0 ? TypedResults.NotFound() : TypedResults.Ok(products);
     }
