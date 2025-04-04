@@ -47,7 +47,7 @@ public static class ProductEndpoints
         return productCategories.Count == 0 ? TypedResults.NotFound() : TypedResults.Ok(productCategories);
     }
 
-    static async Task<IResult> GetProductCategoryByName(string category, AdventureWorksContext db)
+    static async Task<IResult> GetProductCategoryByName(string category, AdventureWorksContext db, [FromServices] ILoggerFactory loggerFactory)
     {
         if (string.IsNullOrEmpty(category))
             return TypedResults.BadRequest();
@@ -68,10 +68,13 @@ public static class ProductEndpoints
 
         var productCategories = await query.ToListAsync();
 
+        var logger = loggerFactory.CreateLogger(nameof(ProductEndpoints));
+        logger.LogInformation($"Product categories count: {productCategories.Count}");
+
         return TypedResults.Ok(productCategories);
     }
 
-    static async Task<IResult> GetProductsByCategoryId(int id, AdventureWorksContext db)
+    static async Task<IResult> GetProductsByCategoryId(int id, AdventureWorksContext db, [FromServices] ILoggerFactory loggerFactory)
     {
         if (id < 5)
              return TypedResults.BadRequest();
@@ -104,6 +107,9 @@ public static class ProductEndpoints
         
         var products = await query.ToListAsync();
 
+        var logger = loggerFactory.CreateLogger(nameof(ProductEndpoints));
+        logger.LogInformation($"Products count: {products.Count}");
+        
         return products.Count == 0 ? TypedResults.NotFound() : TypedResults.Ok(products);
     }
 }
