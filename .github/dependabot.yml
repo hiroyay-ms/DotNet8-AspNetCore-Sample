@@ -12,7 +12,7 @@ updates:
       - "/src/AzureFunctions/FuncProjIntAspNet"
       - "/src/Others/ConsoleApp"
     schedule:
-      interval: "weekly"
+      interval: "monthly"
       day: "tuesday"
       time: "10:00"
       timezone: "Asia/Tokyo"
