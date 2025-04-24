@@ -4,8 +4,8 @@
 version: 2
 updates:
   # Keep npm dependencies up to date
-  - package-ecosystem: "npm"
-    directory: "/"
+  - package-ecosystem: "nuget"
+    directory: "/src/"
     # Check the npm registry every week on Tuesday at 02:00 Japan Standard Time (UTC +09:00)
     schedule:
       interval: "weekly"
