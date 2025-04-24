@@ -6,9 +6,7 @@ updates:
   - package-ecosystem: "nuget"
     directories:
       - "/src/ApplicationInsghts.Demo/Api"
-      - "/src/ApplicationInsghts.Demo/Web"
       - "/src/OpenTelemetry.Demo/Api"
-      - "/src/OpenTelemetry.Demo/Web"
       - "/src/Others/ConsoleApp"
     schedule:
       interval: "weekly"
