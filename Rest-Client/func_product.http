@@ -1,0 +1,6 @@
+@baseUrl = https://func-test-3-flex.azurewebsites.net
+@api-key = uPzNh71ESwf_IdVTp0zJqV02qecVtiQ_v3QatVoSmuMnAzFuIP2X6w%3D%3D
+@id = 5
+
+GET {{baseUrl}}/api/Product/{{id}}?code={{api-key}}
+Content-Type: application/json
