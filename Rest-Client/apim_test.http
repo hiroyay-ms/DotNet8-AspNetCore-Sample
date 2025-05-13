@@ -1,8 +1,0 @@
-@baseUrl = https://xxx
-@token = 
-@tenantId = 
-
-GET {{baseUrl}}/api/category?tenantId={{tenantId}}
-Content-Type: application/json
-Authorization: Bearer {{token}}
-Ocp-Apim-Subscription-Key: e304d27c48e643549205093265ca96cc
