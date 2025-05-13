@@ -1,5 +1,5 @@
-@baseUrl = https://func-test-3-flex.azurewebsites.net
-@api-key = uPzNh71ESwf_IdVTp0zJqV02qecVtiQ_v3QatVoSmuMnAzFuIP2X6w%3D%3D
+@baseUrl = https://xxx.azurewebsites.net
+@api-key = 
 @id = 5
 
 GET {{baseUrl}}/api/Product/{{id}}?code={{api-key}}
