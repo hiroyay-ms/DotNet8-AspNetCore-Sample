@@ -1,0 +1,23 @@
+@page
+@model Web.Pages.SQL.IndexModel
+@{
+    ViewData["Title"] = "System-Assigned Managed Identity -SQL";
+}
+
+<h2 class="pageTitle">Microsoft Entra authentication with Azure SQL</h2>
+
+<p class="pageDescription">This page demonstrates how to use Microsoft Entra authentication with Azure SQL Database</p>
+
+<span>ConnectionString:</span>
+<pre class="connectionString">
+     @ViewData["connectionString"]
+</pre>
+
+<span>@ViewData["query"]</span>
+<pre class="queryResult">
+    @ViewData["queryResult"]
+</pre>
+
+<div class="pageLink">
+    <a asp-page="ExecuteAs">User-Assigned Managed Identity -SQL&nbsp;→</a>
+</div>

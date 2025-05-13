@@ -1,0 +1,20 @@
+@page
+@model Web.Pages.Api.IndexModel
+@{
+    ViewData["Title"] = "API Call";
+}
+
+<h1 class="pageTitle">Call a Web API</h1>
+<p class="pageDescription">This page demonstrates how to call a Web API from a web app</p>
+
+<span>result</span>
+<pre class="apiResult">
+    @ViewData["apiResult"]
+</pre>
+
+<br />
+
+<span>access_token</span>
+<div class="accessToken">
+    @ViewData["accessToken"]
+</div>

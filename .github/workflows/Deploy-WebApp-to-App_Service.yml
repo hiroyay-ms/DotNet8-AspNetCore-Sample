@@ -1,0 +1,84 @@
+name: Deploy Web App
+
+on:
+  workflow_dispatch:
+    inputs:
+      sourcePath:
+        description: '展開するソースのパス'
+        required: true
+        default: './src/ApplicationInsghts.Demo/Web'
+        type: choice
+        options:
+          - './src/ApplicationInsghts.Demo/Web'
+          - './src/OpenTelemetry.Demo/Web'
+      resourceGroup:
+        description: 'リソース グループ名'
+        default: 'rg-test-3'
+        required: true
+        type: string
+      webAppName:
+        description: 'Web アプリ名'
+        default: 'app-test-3'
+        required: true
+        type: string
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  build:
+    runs-on: self-hosted
+    env:
+      APP_PATH: ${{ github.event.inputs.sourcePath }}
+
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '8.0.x'
+          include-prerelease: true
+      
+      - name: Build with dotnet
+        run: dotnet build ${{ env.APP_PATH }} -c Release
+      
+      - name: Publish with dotnet
+        run: dotnet publish ${{ env.APP_PATH }} -c Release -o ${{ env.APP_PATH }}/webapp
+      
+      - name: Upload artifact for deployment job
+        uses: actions/upload-artifact@v4
+        with:
+          name: webapp
+          path: ${{ env.APP_PATH }}/webapp
+
+  deploy:
+    runs-on: self-hosted
+    needs: build
+  
+    steps:
+      - name: Login to Azure
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: webapp
+      
+      - name: Deploy to Azure Web App
+        id: deploy-to-webapp
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: ${{ github.event.inputs.webAppName }}
+          slot-name: 'Production'
+          package: .
+      
+      - name: Logout
+        run: az logout   

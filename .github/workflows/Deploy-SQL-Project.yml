@@ -1,0 +1,66 @@
+name: Deploy SQL Database Project
+
+on:
+  workflow_dispatch:
+    inputs:
+      sqlServerName:
+        description: 'SQL Server 名'
+        default: 'sql-test-3-svr'
+        required: true
+        type: string
+      databaseName:
+        description: データベース名'
+        default: 'Northwind'
+        required: true
+        type: string
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  build:
+    runs-on: self-hosted
+    env:
+      PROJ_PATH: './src/SqlSampleDb'
+  
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: '8.0.x'
+        
+      - name: Build DACPAC
+        run: dotnet build ${{ env.PROJ_PATH }}/SqlSampleDb.sqlproj -c Release
+      
+      - name: Upload artifact for deployment job
+        uses: actions/upload-artifact@v4
+        with:
+          name: db-project
+          path: ${{ env.PROJ_PATH}}/bin/Release
+
+  deploy:
+    runs-on: self-hosted
+    needs: build
+
+    steps:
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: '8.0.x'
+      
+      - name: Install SqlPackage
+        run: |
+          dotnet tool install -g microsoft.sqlpackage
+      
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: db-project
+
+      - name: Deploy DACPAC to Azure
+        run: |
+          $HOME/.dotnet/tools/sqlpackage /Action:Publish /SourceFile:./SqlSampleDb.dacpac /TargetConnectionString:"Server=tcp:${{ github.event.inputs.sqlServerName }}.database.windows.net,1433; Initial Catalog=${{ github.event.inputs.databaseName }}; Authentication=Active Directory Default; Encrypt=True; TrustServerCertificate=False; Connection Timeout=30;" /p:DropObjectsNotInSource=false
