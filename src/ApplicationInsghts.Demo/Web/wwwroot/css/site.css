@@ -98,3 +98,17 @@ pre.queryResult {
 .pageLink {
   margin: 50px 0;
 }
+
+.searchBox {
+  display: flex;
+  margin: 10px 0;
+}
+
+.searchLabel {
+  padding-right: 10px;
+  line-height: 32px;
+}
+
+.searchText {
+  min-width: 200px;
+}
