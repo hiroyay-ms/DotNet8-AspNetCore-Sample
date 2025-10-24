@@ -44,7 +44,7 @@ pre.queryResult {
   border: 1px solid #000;
   height: 450px;
   margin: 0 0 20px 0;
-  padding: 10px 10px 20px 10px;
+  padding: 10px 10px 20px 0px;
 }
 
 .radioButtonGroup {
@@ -97,4 +97,18 @@ pre.queryResult {
 
 .pageLink {
   margin: 50px 0;
+}
+
+.searchBox {
+  display: flex;
+  margin: 10px 0;
+}
+
+.searchLabel {
+  padding-right: 10px;
+  line-height: 32px;
+}
+
+.searchText {
+  min-width: 200px;
 }
