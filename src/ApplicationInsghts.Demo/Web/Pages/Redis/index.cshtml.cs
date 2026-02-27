@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using StackExchange.Redis;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Reflection.PortableExecutable;
 using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Unicode;
@@ -85,5 +86,6 @@ public class IndexModel : PageModel
 
         ElapsedTime = watch.ToString();
         ViewData["queryResult"] = json;
+        ViewData["redisHostName"] = redisHostName;
     }
 }
