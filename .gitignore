@@ -490,3 +490,8 @@ local.settings.json
 # Setting files
 .vscode/
 Rest-Client
+
+# Playwright
+/playwright-report/
+/blob-report/
+/playwright/.cache/

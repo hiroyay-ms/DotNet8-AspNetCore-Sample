@@ -49,5 +49,6 @@ app.UseAuthorization();
 
 app.RegisterProductEndpoints();
 app.RegisterPubsEndpoints();
+app.RegisterHealthCheckEndpoint();
 
 app.Run();
